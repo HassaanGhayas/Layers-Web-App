@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/accordion";
 import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { FaFilter } from "react-icons/fa";
 
 const ShopAccordion: React.FC<SidebarProps> = ({
   categories = [],

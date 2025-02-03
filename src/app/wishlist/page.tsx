@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { useCart } from "../context/cartContext";
 import BreadCrumb from "../containers/main-components/breadcrumb";
+import Image from "next/image";
 
 const WishlistPage = () => {
   const { wishlist, removeFromWishlist } = useWishlist();
@@ -26,10 +27,12 @@ const WishlistPage = () => {
               <Card key={item.id + item.image} className=" shadow-md">
                 <CardContent className="flex sm:flex-row flex-col items-center justify-between p-4 space-y-4">
                   <div className="flex items-center space-x-4">
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name}
                       className="w-16 h-16 object-cover rounded-md"
+                      height={16}
+                      width={16}
                     />
                     <div>
                       <h2 className="text-lg font-semibold text-gray-800">

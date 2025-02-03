@@ -1,4 +1,4 @@
-import { defineField, defineType, Rule } from "sanity";
+import { defineField, defineType } from "sanity";
 import { createClient } from "next-sanity";
 import { v4 as uuidv4 } from "uuid";
 

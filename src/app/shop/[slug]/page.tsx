@@ -6,7 +6,7 @@ import ProductDetails from "@/app/containers/shop-page/product-page/productDetai
 import ProductTabs from "@/app/containers/shop-page/product-page/product-tabs";
 import SimilarProducts from "@/app/containers/shop-page/product-page/similar-products";
 
-const fetchProduct = async (slug: Promise<string>) => {
+const fetchProduct = async (slug: string) => {
   const query = `
     *[_type == "product" && slug.current == $slug] {
       name,
@@ -37,8 +37,9 @@ const fetchProduct = async (slug: Promise<string>) => {
   }
 };
 
-const Product = async ({ params }: { params: { slug: Promise<string> } }) => {
-  const product = await fetchProduct(params.slug);
+const Product = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  const product = await fetchProduct(slug);
 
   if (!product) {
     return (

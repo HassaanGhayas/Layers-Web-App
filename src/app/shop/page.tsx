@@ -4,18 +4,9 @@ import BreadCrumb from "../containers/main-components/breadcrumb";
 import Sidebar from "../containers/shop-page/sidebar";
 import ShopCard from "@/components/ui/shopCard";
 import { IProduct } from "../containers/home-page/newArrival";
-import { Button } from "@/components/ui/button";
-import { FaSort } from "react-icons/fa";
+import { DropdownMenuRadioGroupDemo } from "../containers/shop-page/dropdown";
 import { SkeletonCard } from "../containers/main-components/skeleton-card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuLabel,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 import {
   Pagination,
   PaginationContent,
@@ -49,6 +40,7 @@ function Shop() {
         setProducts(fetchedProducts); // Save all products
         setFilteredProducts(fetchedProducts); // Initial load: no filters applied
       } catch (error) {
+        console.log("The error is", error)
         setError("Product fetching request failed. Please try again later");
       } finally {
         setLoading(false);
@@ -258,45 +250,4 @@ function Shop() {
 
 export default Shop;
 
-export function DropdownMenuRadioGroupDemo({
-  position,
-  setPosition,
-  handleSort,
-}: {
-  position: string;
-  setPosition: (position: string) => void;
-  handleSort: (value: string) => void;
-}) {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={"secondary"} size={"sm"}>
-          Sort by
-          <FaSort />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup
-          value={position}
-          onValueChange={(value) => {
-            setPosition(value);
-            handleSort(value);
-          }}
-        >
-          <DropdownMenuLabel>Price</DropdownMenuLabel>
-          <DropdownMenuRadioItem value="lowtohigh">
-            Lowest to Highest
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="hightolow">
-            Highest to Lowest
-          </DropdownMenuRadioItem>
-          <DropdownMenuLabel>Other</DropdownMenuLabel>
-          <DropdownMenuRadioItem value="discounted">
-            Discounted
-          </DropdownMenuRadioItem>
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
+
