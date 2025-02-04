@@ -31,16 +31,16 @@ const ShopCard = ({ product }: { product: IProduct }) => {
           <CardTitle className="text-base font-semibold">
             {product.name
               ? product.name
-                  .toLowerCase()
-                  .split(" ")
-                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                  .join(" ")
+                .toLowerCase()
+                .split(" ")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")
               : "Unnamed Product"}
           </CardTitle>
           <CardDescription className="text-sm text-gray-500 pt-1">
             {product.subcategory
               ? product.subcategory.charAt(0).toUpperCase() +
-                product.subcategory.slice(1)
+              product.subcategory.slice(1)
               : "Unknown Category"}
           </CardDescription>
         </CardContent>
@@ -52,14 +52,14 @@ const ShopCard = ({ product }: { product: IProduct }) => {
             {product.discountPercent <= 0
               ? product.price
               : (
-                  product.price -
-                  (product.price * product.discountPercent) / 100
-                ).toFixed()}
+                product.price -
+                (product.price * product.discountPercent) / 100
+              ).toFixed()}
           </span>
           {product.discountPercent > 0 && (
             <Badge
-              variant={"outline"}
-              className="border-red-400 text-red-500 bg-red-100"
+              variant="outline"
+              className="border-red-500 text-red-700 bg-red-200"
             >
               -%{product.discountPercent}
             </Badge>

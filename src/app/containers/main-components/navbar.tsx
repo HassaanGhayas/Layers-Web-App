@@ -1,12 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { IoLayers } from "react-icons/io5";
-import { IoBagHandleOutline } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa";
+import { IoLayers, IoBagHandleOutline } from "react-icons/io5";
+import { FaRegHeart, FaBars, FaTimes, FaChevronRight } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { FaBars, FaTimes, FaChevronRight } from "react-icons/fa";
 import { 
   SignedIn, 
   SignedOut, 
@@ -34,9 +32,9 @@ const Navbar = () => {
   return (
     <nav className="manrope fixed w-full bg-white z-50 shadow-md">
       <div className="w-full max-w-screen-lg m-auto flex justify-between items-center p-4">
-        <Link href={"/"}>
+        <Link href="/" aria-label="Go to homepage">
           <div className="flex items-center montser text-2xl gap-1">
-            <IoLayers />
+            <IoLayers aria-hidden="true" />
             Layers
           </div>
         </Link>
@@ -46,24 +44,26 @@ const Navbar = () => {
           {navbarLinksMid.map((val, index) => {
             const isActive = path.startsWith(val.link);
             return (
-              <Link href={val.link} key={index}>
-                <li className={isActive ? "underline" : ""}>{val.name}</li>
-              </Link>
+              <li key={index}>
+                <Link href={val.link} className={isActive ? "underline" : ""} aria-label={`Go to ${val.name}`}>
+                  {val.name}
+                </Link>
+              </li>
             );
           })}
         </ul>
 
         {/* Desktop icons and authentication */}
         <div className="md:flex items-center gap-3 text-xl hidden">
-          <Link href={"/wishlist"}>
-            <FaRegHeart />
+          <Link href="/wishlist" aria-label="Go to wishlist">
+            <FaRegHeart aria-hidden="true" />
           </Link>
-          <Link href={"/cart"}>
-            <IoBagHandleOutline />
+          <Link href="/cart" aria-label="Go to cart">
+            <IoBagHandleOutline aria-hidden="true" />
           </Link>
           <SignedOut>
             <SignInButton mode="modal">
-              <Button>Sign In</Button>
+              <Button aria-label="Sign in to your account">Sign In</Button>
             </SignInButton>
           </SignedOut>
           <SignedIn>
@@ -72,14 +72,13 @@ const Navbar = () => {
         </div>
 
         {/* Mobile hamburger icon */}
-        <div
-          className="md:hidden"
-          onClick={() => {
-            setMenu(!menu);
-          }}
+        <button 
+          className="md:hidden" 
+          onClick={() => setMenu(!menu)} 
+          aria-label={menu ? "Close menu" : "Open menu"}
         >
-          {menu ? <FaTimes /> : <FaBars />}
-        </div>
+          {menu ? <FaTimes aria-hidden="true" /> : <FaBars aria-hidden="true" />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
@@ -88,21 +87,17 @@ const Navbar = () => {
           {hamburgerLink.map((val, index) => {
             const isActive = path.startsWith(val.link);
             return (
-              <Link href={val.link} key={index}>
-                <li
-                  className={`${
-                    isActive ? "underline" : ""
-                  } text-xl flex justify-between items-center`}
-                >
-                  {val.name} <FaChevronRight className="text-sm" />
-                </li>
-              </Link>
+              <li key={index}>
+                <Link href={val.link} className={`${isActive ? "underline" : ""} text-xl flex justify-between items-center`} aria-label={`Go to ${val.name}`}>
+                  {val.name} <FaChevronRight className="text-sm" aria-hidden="true" />
+                </Link>
+              </li>
             );
           })}
           <div className="mt-4">
             <SignedOut>
               <SignInButton mode="modal">
-                <Button className="w-full">Sign In</Button>
+                <Button className="w-full" aria-label="Sign in to your account">Sign In</Button>
               </SignInButton>
             </SignedOut>
             <SignedIn>
