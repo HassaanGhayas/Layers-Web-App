@@ -23,8 +23,7 @@ export async function GET() {
     const products = await client.fetch(query, {}, { cache: "no-store" });
 
     return NextResponse.json(products, { status: 200 });
-  } catch (err) {
-    console.log("The error is" ,err)
+  } catch{
     return NextResponse.error();
   }
 }

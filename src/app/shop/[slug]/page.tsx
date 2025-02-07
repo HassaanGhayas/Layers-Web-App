@@ -31,8 +31,7 @@ const fetchProduct = async (slug: string) => {
       { cache: "no-cache" }
     );
     return products[0] || null;
-  } catch (error) {
-    console.error("Error fetching product:", error);
+  } catch {
     return null;
   }
 };
