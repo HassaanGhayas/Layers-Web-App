@@ -4,7 +4,7 @@
 This repository contains assignments and projects **exclusively created by Hassaan Ghayas**. If you are using or referencing my work, make sure to **give proper credit**. 
 
 ## 🔥 Why This Exists
-Many people copy my assignments **without acknowledgment**, which is unfair. This file is here to make it clear that:
+Many people copy **without acknowledgment**, which is unfair. This file is here to make it clear that:
 - **I own this work.**
 - **Unauthorized use without credit is NOT appreciated.**
 
