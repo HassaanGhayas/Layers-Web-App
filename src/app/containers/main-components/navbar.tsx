@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { IoLayers, IoBagHandleOutline } from "react-icons/io5";
-import { FaRegHeart, FaBars, FaTimes, FaChevronRight } from "react-icons/fa";
+import { FaRegHeart, FaBars, FaChevronRight } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -11,6 +11,13 @@ import {
   SignInButton, 
   UserButton 
 } from "@clerk/clerk-react";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const Navbar = () => {
   const navbarLinksMid = [
@@ -26,7 +33,6 @@ const Navbar = () => {
     { name: "Cart", link: "/cart" },
   ];
 
-  const [menu, setMenu] = useState(false);
   const path = usePathname();
 
   return (
@@ -71,41 +77,42 @@ const Navbar = () => {
           </SignedIn>
         </div>
 
-        {/* Mobile hamburger icon */}
-        <button 
-          className="md:hidden" 
-          onClick={() => setMenu(!menu)} 
-          aria-label={menu ? "Close menu" : "Open menu"}
-        >
-          {menu ? <FaTimes aria-hidden="true" /> : <FaBars aria-hidden="true" />}
-        </button>
+        {/* Mobile Menu with Sheet */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" className="md:hidden p-0" aria-label="Open menu">
+              <FaBars aria-hidden="true" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] bg-white manrope" >
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+            </SheetHeader>
+            <ul className="flex flex-col gap-3 mt-4">
+              {hamburgerLink.map((val, index) => {
+                const isActive = path.startsWith(val.link);
+                return (
+                  <li key={index}>
+                    <Link href={val.link} className={`${isActive ? "underline" : ""} text-xl flex justify-between items-center`} aria-label={`Go to ${val.name}`}>
+                      {val.name} <FaChevronRight className="text-sm" aria-hidden="true" />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <div className="mt-4">
+              <SignedOut>
+                <SignInButton mode="redirect">
+                  <Button className="w-full" aria-label="Sign in to your account">Sign In</Button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
-
-      {/* Mobile Menu */}
-      {menu && (
-        <ul className="h-screen p-5 w-full bg-white max-w-[300px] absolute right-0 flex flex-col gap-3 md:hidden">
-          {hamburgerLink.map((val, index) => {
-            const isActive = path.startsWith(val.link);
-            return (
-              <li key={index}>
-                <Link href={val.link} className={`${isActive ? "underline" : ""} text-xl flex justify-between items-center`} aria-label={`Go to ${val.name}`}>
-                  {val.name} <FaChevronRight className="text-sm" aria-hidden="true" />
-                </Link>
-              </li>
-            );
-          })}
-          <div className="mt-4">
-            <SignedOut>
-              <SignInButton mode="modal">
-                <Button className="w-full" aria-label="Sign in to your account">Sign In</Button>
-              </SignInButton>
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </div>
-        </ul>
-      )}
     </nav>
   );
 };
